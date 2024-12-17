@@ -30,6 +30,12 @@ func TestBasicType(t *testing.T) {
 
 }
 
+type Customer struct {
+	CookieID string
+	Name     string
+	Age      int
+}
+
 func TestDeepEqual(t *testing.T) {
 	a := map[int]string{1: "one", 2: "two", 3: "three"}
 	b := map[int]string{1: "one", 2: "two", 3: "three"}
@@ -45,7 +51,7 @@ func TestDeepEqual(t *testing.T) {
 
 	c1 := Customer{"1", "Mike", 40}
 	c2 := Customer{"1", "Mike", 40}
-	fmt.Println(c1 == c2)
+	fmt.Println("c1 == c2 ", c1 == c2)
 	fmt.Println(reflect.DeepEqual(c1, c2))
 }
 
@@ -59,12 +65,6 @@ func (e *Employee) UpdateAge(newVal int) {
 	e.Age = newVal
 }
 
-type Customer struct {
-	CookieID string
-	Name     string
-	Age      int
-}
-
 func TestInvokeByName(t *testing.T) {
 	e := &Employee{"1", "Mike", 30}
 	//按名字获取成员
@@ -72,6 +72,7 @@ func TestInvokeByName(t *testing.T) {
 	if nameField, ok := reflect.TypeOf(*e).FieldByName("Name"); !ok {
 		t.Error("Failed to get 'Name' field.")
 	} else {
+		t.Log("nameField", nameField)
 		t.Log("Tag:format", nameField.Tag.Get("format"))
 	}
 	reflect.ValueOf(e).MethodByName("UpdateAge").

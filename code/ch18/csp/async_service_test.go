@@ -34,10 +34,10 @@ func AsyncService() chan string {
 	return retCh
 }
 
-//
 func TestAsynService(t *testing.T) {
 	retCh := AsyncService()
-	otherTask()
 	fmt.Println(<-retCh)
-	time.Sleep(time.Second * 1)
+	otherTask()
+	//fmt.Println(<-retCh)
+	//time.Sleep(time.Second * 1)
 }
