@@ -17,7 +17,7 @@ func TestString(t *testing.T) {
 	s = "中"
 	t.Log(len(s)) //是byte数
 
-	c := []rune(s)
+	c := []rune(s) // rune 是 int32 的别名
 	t.Log(len(c))
 	//	t.Log("rune size:", unsafe.Sizeof(c[0]))
 	t.Logf("中 unicode %x", c[0])

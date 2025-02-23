@@ -8,8 +8,8 @@ import (
 
 var cache map[string]string
 
-const NUM_OF_READER int = 40
-const READ_TIMES = 100000
+const NumOfReader int = 40
+const ReadTimes = 100000
 
 func init() {
 	cache = make(map[string]string)
@@ -21,10 +21,10 @@ func init() {
 func lockFreeAccess() {
 
 	var wg sync.WaitGroup
-	wg.Add(NUM_OF_READER)
-	for i := 0; i < NUM_OF_READER; i++ {
+	wg.Add(NumOfReader)
+	for i := 0; i < NumOfReader; i++ {
 		go func() {
-			for j := 0; j < READ_TIMES; j++ {
+			for j := 0; j < ReadTimes; j++ {
 				_, err := cache["a"]
 				if !err {
 					fmt.Println("Nothing")
@@ -39,11 +39,12 @@ func lockFreeAccess() {
 func lockAccess() {
 
 	var wg sync.WaitGroup
-	wg.Add(NUM_OF_READER)
-	m := new(sync.RWMutex)
-	for i := 0; i < NUM_OF_READER; i++ {
+	wg.Add(NumOfReader)
+	//m := new(sync.RWMutex)
+	m := &sync.RWMutex{} // 两种写法都一样
+	for i := 0; i < NumOfReader; i++ {
 		go func() {
-			for j := 0; j < READ_TIMES; j++ {
+			for j := 0; j < ReadTimes; j++ {
 
 				m.RLock()
 				_, err := cache["a"]

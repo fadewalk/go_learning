@@ -14,7 +14,7 @@ func TestPanicVxExit(t *testing.T) {
 		}
 	}()
 	fmt.Println("Start")
-	panic(errors.New("Something wrong!"))
+	panic(errors.New("something wrong"))
 	//os.Exit(-1)
 	//fmt.Println("End")
 }
